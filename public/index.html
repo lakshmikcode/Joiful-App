@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joiful</title>
+    <!-- Font and Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@700&family=Balsamiq+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Main content of the page -->
+    <header>
+        <!-- Header section of the app -->
+        <img src="images/logo.png" alt="Joiful Logo" class="logo">
+        <!-- Displays the logo image with alt text for accessibility -->
+        <div class="tagline">
+            <!-- Tagline of the app -->
+            Track how much enjoyment you find in daily tasks. We believe joy can be found in work and everyday activities - life is meant to be enjoyed!
+        </div>
+        <button id="logoutButton" style="display: none;">Logout</button>
+        <!-- Logout button, initially hidden -->
+        <button id="goPremiumButton" class="premium-button" style="display: none;">Go Premium</button>
+        <!-- Go Premium button, initially hidden -->
+    </header>
+
+    <div id="auth">
+        <!-- Authentication section (login/signup) -->
+        <div class="auth-container" id="loginContainer">
+            <!-- Login container -->
+            <h2>Welcome to Joiful!</h2>
+            <!-- Login heading -->
+            <input type="email" id="email" placeholder="Email">
+            <!-- Email input field -->
+            <input type="password" id="password" placeholder="Password">
+            <!-- Password input field -->
+            <div class="button-group">
+                <!-- Group of buttons for sign in and switching to sign up -->
+                <button onclick="signIn()" class="signInButton">Sign In</button>
+                <!-- Sign In button -->
+                <button onclick="showSignUp()" class="switchButton">Create Account</button>
+                <!-- Button to switch to the sign-up form -->
+            </div>
+        </div>
+
+        <div class="auth-container" id="signupContainer" style="display: none;">
+            <!-- Signup container, initially hidden -->
+            <h2>Create Account</h2>
+            <!-- Signup heading -->
+            <input type="email" id="signupEmail" placeholder="Email">
+            <!-- Email input field for signup -->
+            <input type="password" id="signupPassword" placeholder="Password">
+            <!-- Password input field for signup -->
+            <input type="text" id="username" placeholder="Username">
+            <!-- Username input field for signup -->
+            <div class="button-group">
+                <!-- Group of buttons for signing up and switching back to login -->
+                <button onclick="signUp()" class="signUpButton">Sign Up</button>
+                <!-- Sign Up button -->
+                <button onclick="showLogin()" class="switchButton">Back to Login</button>
+                <!-- Button to switch back to the login form -->
+            </div>
+        </div>
+    </div>
+
+    <div id="paymentModal" class="modal">
+        <!-- Payment modal for premium features -->
+        <div class="modal-content payment-modal">
+            <!-- Content within the payment modal -->
+            <h3>Unlock Premium Features</h3>
+            <!-- Heading for the payment modal -->
+            <p class="premium-benefits">Get full access to our AI Joi Coach!</p>
+            <!-- Benefits of premium features -->
+            <div class="plans">
+                <!-- Container for the payment plans -->
+                <div class="plan" onclick="selectPlan('monthly')" id="monthlyPlan">
+                    <!-- Monthly plan -->
+                    <h4>Monthly</h4>
+                    <!-- Monthly plan title -->
+                    <p class="price">$1.99<span>/month</span></p>
+                    <!-- Monthly plan price -->
+                    <div class="plan-details">Billed monthly</div>
+                    <!-- Monthly plan details -->
+                </div>
+                <div class="plan" onclick="selectPlan('yearly')" id="yearlyPlan">
+                    <!-- Yearly plan -->
+                    <h4>Yearly</h4>
+                    <!-- Yearly plan title -->
+                    <p class="price">$19.99<span>/year</span></p>
+                    <!-- Yearly plan price -->
+                    <div class="plan-details">Save 20%</div>
+                    <!-- Yearly plan details -->
+                </div>
+            </div>
+            <div id="paymentForm" style="display: none;">
+                <!-- Payment form, initially hidden -->
+                <h4>(Mock) Payment</h4>
+                <!-- Payment form title -->
+                <input type="text" placeholder="Card Number" id="cardNumber">
+                <!-- Card number input -->
+                <p class="payment-tip">Example: 4242 4242 4242 4242</p>
+                <!-- Card number tip -->
+                <input type="text" placeholder="MM/YY" id="cardExpiry">
+                <!-- Card expiry input -->
+                <p class="payment-tip">Example: 12/30</p>
+                <!-- Card expiry tip -->
+                <input type="text" placeholder="CVC" id="cardCvc">
+                <!-- Card CVC input -->
+                <p class="payment-tip">3-4 digits on back of card</p>
+                <!-- Card CVC tip -->
+                <button onclick="processPayment()" class="saveTaskButton">Complete</button>
+                <!-- Complete payment button -->
+            </div>
+            <button onclick="closePaymentModal()" class="closeModalButton">Cancel</button>
+            <!-- Cancel payment button -->
+        </div>
+    </div>
+
+    <div id="home" style="display: none;">
+        <!-- Home section, initially hidden -->
+        <div class="app-header">
+            <!-- Header for the home section -->
+            <input type="date" id="datePicker">
+            <!-- Date picker input -->
+            <button onclick="prepareNewLog()" class="newLogButton">New Log</button>
+            <!-- Button to create a new log -->
+        </div>
+        <div id="logsList" class="logs-container"></div>
+        <!-- Container for displaying logs -->
+    </div>
+
+    <div id="logModal" class="modal">
+        <!-- Log modal for creating/editing logs -->
+        <div class="modal-content">
+            <!-- Content within the log modal -->
+            <h3 id="formattedDate"></h3>
+            <!-- Formatted date display -->
+            <div id="taskList"></div>
+            <!-- Container for the list of tasks -->
+            <button onclick="addTaskField()" class="addTaskButton">+ Add Task</button>
+            <!-- Button to add a new task field -->
+            <div class="modal-actions">
+                <!-- Actions for the modal -->
+                <button onclick="saveLog()" class="saveTaskButton">Save</button>
+                <!-- Button to save the log -->
+                <button onclick="closeModal()" class="closeModalButton">Close</button>
+                <!-- Button to close the modal -->
+            </div>
+            <div class="reflection-section">
+                <!-- Section for daily reflections -->
+                <h4>Daily Reflection</h4>
+                <!-- Reflection section title -->
+                <div class="reflection-question">
+                    <!-- Container for a reflection question -->
+                    <label>What made today enjoyable?</label>
+                    <!-- Reflection question label -->
+                    <textarea id="reflection1" rows="3"></textarea>
+                    <!-- Textarea for reflection question 1 -->
+                </div>
+                <div class="reflection-question">
+                    <!-- Container for a reflection question -->
+                    <label>What challenges did you face?</label>
+                    <!-- Reflection question label -->
+                    <textarea id="reflection2" rows="3"></textarea>
+                    <!-- Textarea for reflection question 2 -->
+                </div>
+                <div class="reflection-question">
+                    <!-- Container for a reflection question -->
+                    <label>How can tomorrow be better?</label>
+                    <!-- Reflection question label -->
+                    <textarea id="reflection3" rows="3"></textarea>
+                    <!-- Textarea for reflection question 3 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <!-- Firebase App script -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <!-- Firebase Firestore script -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <!-- Firebase Auth script -->
+    <script src="app.js"></script>
+    <!-- Link to the main application script -->
+</body>
+</html>
