@@ -7,7 +7,7 @@
  * @constant {Object} firebaseConfig
  */
 const firebaseConfig = {
-    apiKey: "AIzaSyA2eH9lRTXd5hXXUxPt-e99gy8KuVMyJYI",
+    apiKey: "ENCRYPTED",
     authDomain: "joiful-app-960a0.firebaseapp.com",
     projectId: "joiful-app-960a0",
     storageBucket: "joiful-app-960a0.appspot.com",
